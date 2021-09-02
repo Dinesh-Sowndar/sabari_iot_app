@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:IoT_App/services/api_services/fireDB.dart';
 import 'package:IoT_App/services/api_services/fireRD.dart';
 import 'package:animate_do/animate_do.dart';
@@ -7,6 +9,8 @@ import 'package:shimmer/shimmer.dart';
 
 import '../services/api_services/api.dart';
 import '../widgets/custom_shimmer.dart';
+import 'package:hardware_buttons/hardware_buttons.dart' as HardwareButtons;
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,12 +21,16 @@ class _HomePageState extends State<HomePage> {
   bool loading = true;
   List<bool> devices = [];
   FirebaseDatabaseUtil fireApi = new FirebaseDatabaseUtil();
+  StreamSubscription<HardwareButtons.HomeButtonEvent> _homeButtonSubscription;
 
   @override
   void initState() {
     super.initState();
     fireApi.initState();
     getData();
+     _homeButtonSubscription = HardwareButtons.homeButtonEvents.listen((event) {
+     print("press home");
+    });
   }
 
   getData() {

@@ -28,6 +28,7 @@ dependencies:
   firebase_core: ^0.5.0
   csv: ^4.1.0
   share: ^0.6.5
+  hardware_buttons: ^1.0.0
 
 
 dev_dependencies:

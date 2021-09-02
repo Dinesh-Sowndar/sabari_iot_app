@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:IoT_App/pages/ch_page.dart';
 import 'package:IoT_App/styles.dart';
 import 'package:IoT_App/utils/form_validator.dart';
@@ -5,6 +7,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hardware_buttons/hardware_buttons.dart' as HardwareButtons;
+
 
 class SelectUser extends StatefulWidget {
   @override
@@ -19,11 +23,15 @@ class _SelectUserState extends State<SelectUser> {
   List names = [];
   //  final _formKey = GlobalKey<FormState>();
   GlobalKey<FormFieldState> _formKey = new GlobalKey();
+ StreamSubscription<HardwareButtons.HomeButtonEvent> _homeButtonSubscription;
 
   @override
   void initState() {
     super.initState();
     names = GetStorage().read("machine") ?? [];
+      _homeButtonSubscription = HardwareButtons.homeButtonEvents.listen((event) {
+     print("press home");
+    });
   }
 
   Widget addName() {
@@ -329,83 +337,87 @@ class _SelectUserState extends State<SelectUser> {
             height: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
                   "assets/images/device1.jpeg",
                   width: Get.width * 0.28,
                   height: Get.width * 0.28,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Container(
-                    // color: Colors.grey,
-                    width: Get.width * 0.35,
-                      decoration: BoxDecoration(
-                    color: Colors.yellow[400],
-                              // border: Border.all(color: Colors.grey),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                    height:60,
-                    // padding: EdgeInsets.all(20.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 0.5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(5,1,5,1),
-                        child: Center(
-                          child: DropdownButtonFormField(
-                              // hint: Text(""),
-                              key: _formKey,
-                              dropdownColor: Colors.yellow[400],
-                              decoration: InputDecoration.collapsed(
-                                hintText: 'Machine number'.toUpperCase(),
-                                hintStyle: TextStyle(
-                                    color: Colors.black, fontSize: 22),
-                              ),
-                              isExpanded: true,
-                              // isDense: false,
-                              icon: Icon(Icons.keyboard_arrow_down_rounded),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold),
-                              value: selected,
-                              items: names
-                                  .map((e) => new DropdownMenuItem(
-                                        value: e,
-                                        child: new Text(e),
-                                      ))
-                                  .toList(),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Container(
+                        // color: Colors.grey,
+                        width: Get.width * 0.35,
+                          decoration: BoxDecoration(
+                        color: Colors.yellow[400],
+                                  // border: Border.all(color: Colors.grey),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                        height:60,
+                        // padding: EdgeInsets.all(20.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black,width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5,1,5,1),
+                            child: Center(
+                              child: DropdownButtonFormField(
+                                  // hint: Text(""),
+                                  key: _formKey,
+                                  dropdownColor: Colors.yellow[400],
+                                  decoration: InputDecoration.collapsed(
+                                    hintText: 'Machine number'.toUpperCase(),
+                                    hintStyle: TextStyle(
+                                        color: Colors.black, fontSize: 22),
+                                  ),
+                                  isExpanded: true,
+                                  // isDense: false,
+                                  icon: Icon(Icons.keyboard_arrow_down_rounded),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                  value: selected,
+                                  items: names
+                                      .map((e) => new DropdownMenuItem(
+                                            value: e,
+                                            child: new Text(e),
+                                          ))
+                                      .toList(),
 
-                              //  [
-                              //   DropdownMenuItem(
-                              //     child: Text("Sabari"),
-                              //     value: "Sabari",
-                              //   ),
-                              //   DropdownMenuItem(
-                              //     child: Text("Dinesh"),
-                              //     value: "Dinesh",
-                              //   ),
-                              //   DropdownMenuItem(child: Text("Karthi"), value: "Karthi"),
-                              // ],
+                                  //  [
+                                  //   DropdownMenuItem(
+                                  //     child: Text("Sabari"),
+                                  //     value: "Sabari",
+                                  //   ),
+                                  //   DropdownMenuItem(
+                                  //     child: Text("Dinesh"),
+                                  //     value: "Dinesh",
+                                  //   ),
+                                  //   DropdownMenuItem(child: Text("Karthi"), value: "Karthi"),
+                                  // ],
 
-                              onChanged: (value) {
-                                Get.to(ChPage(
-                                  name: value,
-                                ));
-                                // setState(() {
-                                //   _value = value;
-                                // });
-                              }),
+                                  onChanged: (value) {
+                                    Get.to(ChPage(
+                                      name: value,
+                                    ));
+                                    // setState(() {
+                                    //   _value = value;
+                                    // });
+                                  }),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 Image.asset(
                   "assets/images/device3.jpeg",

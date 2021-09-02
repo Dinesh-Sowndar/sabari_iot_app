@@ -210,7 +210,7 @@ class _HistoryState extends State<History> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
-                                child: Text('SL.ON',
+                                child: Text('SL.NO',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.02,fontWeight: FontWeight.bold)),
                               ),
