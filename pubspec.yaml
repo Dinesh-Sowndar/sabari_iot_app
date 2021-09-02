@@ -1,0 +1,59 @@
+name: IoT_App
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  carousel_slider:
+  firebase_messaging:
+  get:
+  dio:
+  intl:
+  smooth_page_indicator:
+  shimmer:
+  flutter_spinkit:
+  get_storage:
+  animate_do:
+  # cloud_firestore: ^0.13.4
+  firebase_database: 4.0.0
+  firebase_core: ^0.5.0
+  csv: ^4.1.0
+  share: ^0.6.5
+
+
+dev_dependencies:
+  change_app_package_name: ^0.1.2
+  flutter_launcher_icons: "^0.8.0"
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon/icon.jpg"
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/app_icon/
+    - assets/images/
+
+  fonts:
+    - family: Josefin
+      fonts:
+        - asset: assets/fonts/Medium.ttf
+        - asset: assets/fonts/Light.ttf
+          weight: 200
+        - asset: assets/fonts/Bold.ttf
+          weight: 700
+ 
